@@ -9,6 +9,7 @@ const ipcMain = electron.ipcMain;
 
 let mainWindow;
 let settingsWindow;
+let aboutWindow;
 
 let menuTemplate = [{
     label:'orenoEditor',
@@ -17,6 +18,9 @@ let menuTemplate = [{
         { type: 'separator' },
         //{ label:'Settings', accelerator: 'CmdOrCtrl+,', click:function(){ showSettingsWindow(); }},
         //{ type: 'separator' },
+        { label:'Close', accelerator: 'CmdOrCtrl+W', click:function(){ BrowserWindow.getFocusedWindow().close();
+ }},
+        { type: 'separator' },
         { label:'Quit', accelerator: 'CmdOrCtrl+Q', click:function(){ app.quit(); }},
     ]
 }];
@@ -32,8 +36,16 @@ ipcMain.on('event_name', function(event){
     event.returnValue = value; // 渡したい値
 })
 
-ipcMain.on('open-developer-tool', function(event){
-    mainWindow.webContents.openDevTools(); // devtoolを明けておく
+ipcMain.on('open-developer-tool', function(event, type){
+    switch(type){
+        case 'index':
+            var target = mainWindow;
+            break;
+        case 'about':
+            var target = aboutWindow;
+            break;
+    }
+    target.webContents.openDevTools(); // devtoolを明けておく
 })
 // OSのダイアログを表示する
 function showAboutDialog(){
@@ -67,12 +79,13 @@ function showSettingsWindow(){
 }
 
 function showAboutWindow(){
-    settingsWindow = new BrowserWindow({width: 600, height:400});
-    settingsWindow.loadURL('file://' + __dirname + '/about.html');
-    settingsWindow.on('closed', ()=>{
-        settingsWindow = null;
+    aboutWindow = new BrowserWindow({width: 600, height:400});
+    aboutWindow.loadURL('file://' + __dirname + '/about.html');
+    aboutWindow.on('closed', ()=>{
+        aboutWindow = null;
     })
 }
+
 app.on('ready', ()=>{
     createMainWindow();    
 });

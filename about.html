@@ -4,13 +4,20 @@
   <meta charset="UTF-8">
   <title>note.js</title>
 <style media="screen">
+    body {
+        font-family: Verdana;
+    }
+    .container {
+        max-width: 88vw;
+        margin: 0 auto;
+    }
 </style>
 
 </head>
 <body>
   <div class="container">
        <h1>このアプリについて</h1>
-       <p>不具合やご意見がある場合は <a href=""></a></p>
+       <p>不具合やご意見がある場合は <a href="https://github.com/vsanna/orenoEditorElectron">こちら</a>にまでご連絡ください。</p>
 
   </div>
 
@@ -55,7 +62,7 @@
         const MenuItem = remote.MenuItem;
         let menu = new Menu();
         menu.append(new MenuItem({ label: 'developer tool', click:function(){
-            ipcRenderer.send('open-developer-tool');            
+            ipcRenderer.send('open-developer-tool', 'about');            
         }}))
         window.addEventListener('contextmenu', function(e){
             e.preventDefault();
