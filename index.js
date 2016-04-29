@@ -13,10 +13,10 @@ let settingsWindow;
 let menuTemplate = [{
     label:'orenoEditor',
     submenu: [
-        { label:'About', accelerator: 'CmdOrCtrl+Shift+A', click:function(){ showAboutDialog(); } } ,
+        { label:'About', accelerator: 'CmdOrCtrl+Shift+A', click:function(){ showAboutWindow(); } } ,
         { type: 'separator' },
-        { label:'Settings', accelerator: 'CmdOrCtrl+,', click:function(){ showSettingsWindow(); }},
-        { type: 'separator' },
+        //{ label:'Settings', accelerator: 'CmdOrCtrl+,', click:function(){ showSettingsWindow(); }},
+        //{ type: 'separator' },
         { label:'Quit', accelerator: 'CmdOrCtrl+Q', click:function(){ app.quit(); }},
     ]
 }];
