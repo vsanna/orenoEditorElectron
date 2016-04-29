@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>note.js</title>
+<style media="screen">
+</style>
+
+</head>
+<body>
+  <div class="container">
+       <h1>このアプリについて</h1>
+       <p>不具合やご意見がある場合は <a href=""></a></p>
+
+  </div>
+
+
+<script src="note.js" charset="utf-8"></script>
+<script>
+  (function(){
+    new Note(
+      {
+        editor: '#main',
+        prefix: 'Memo'
+      }
+    ).run()
+  })();
+
+</script>
+<script>
+    window.jQuery = window.$ = require('jquery');
+</script>
+
+<script>
+    (function(){
+      $('.opener, .overall, .btn_create').click(function(){
+        $('#slider').stop(true).toggleClass('visible')
+        $('.overall').stop(true).toggleClass('visible')
+        $('.opener').stop(true).toggleClass('onMenu')
+      })
+      $('#menu').on('click','.btn_switch', function(){
+        $('#slider').stop(true).toggleClass('visible')
+        $('.overall').stop(true).toggleClass('visible')
+        $('.opener').stop(true).toggleClass('onMenu')
+      })
+
+    })();
+</script>
+
+<script>
+        const electron = require('electron');
+        const remote = electron.remote;
+        const ipcRenderer = electron.ipcRenderer; // データをファイル間でやりトルするためのモジュール
+        const Menu = remote.Menu;
+        const MenuItem = remote.MenuItem;
+        let menu = new Menu();
+        menu.append(new MenuItem({ label: 'developer tool', click:function(){
+            ipcRenderer.send('open-developer-tool');            
+        }}))
+        window.addEventListener('contextmenu', function(e){
+            e.preventDefault();
+            menu.popup(remote.getCurrentWindow());
+        }) 
+</script>
+</body>
+</html>
